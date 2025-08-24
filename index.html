@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shree Ram Fund - Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Shree Ram Fund</h2>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <div class="login-header">
+                <h1><i class="fas fa-temple-hindu"></i> Shree Ram Fund</h1>
+                <p>Admin Login</p>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <input type="text" id="username" placeholder="Username" required>
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                    <i class="fas fa-lock"></i>
+                </div>
+                <button type="submit" class="login-btn">
+                    <span>Login</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- OTP Verification Page -->
+    <div id="otpPage" class="page">
+        <div class="otp-container">
+            <div class="otp-header">
+                <h1><i class="fas fa-shield-alt"></i> OTP Verification</h1>
+                <p>Enter the 6-digit OTP sent to your account</p>
+            </div>
+            <div class="otp-display">
+                <h2>Your OTP: <span id="otpDisplay">------</span></h2>
+                <p class="otp-timer">Expires in: <span id="otpTimer">10:00</span></p>
+            </div>
+            <form id="otpForm" class="otp-form">
+                <div class="otp-inputs">
+                    <input type="text" maxlength="1" class="otp-input" data-index="0">
+                    <input type="text" maxlength="1" class="otp-input" data-index="1">
+                    <input type="text" maxlength="1" class="otp-input" data-index="2">
+                    <input type="text" maxlength="1" class="otp-input" data-index="3">
+                    <input type="text" maxlength="1" class="otp-input" data-index="4">
+                    <input type="text" maxlength="1" class="otp-input" data-index="5">
+                </div>
+                <button type="submit" class="otp-btn">
+                    <span>Verify OTP</span>
+                    <i class="fas fa-check"></i>
+                </button>
+            </form>
+            <div class="otp-actions">
+                <button id="regenerateOtpBtn" class="regenerate-btn">
+                    <i class="fas fa-redo"></i> Regenerate OTP
+                </button>
+                <button id="backToLoginBtn" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Login
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="page">
+        <nav class="dashboard-nav">
+            <div class="nav-brand">
+                <h2><i class="fas fa-temple-hindu"></i> Shree Ram Fund</h2>
+            </div>
+            <div class="nav-actions">
+                <button id="addMemberBtn" class="nav-btn">
+                    <i class="fas fa-plus"></i> Add Member
+                </button>
+                <button id="logoutBtn" class="nav-btn logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </nav>
+        
+        <div class="dashboard-content">
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalMembers">0</h3>
+                        <p>Total Members</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalWeekly">₹0</h3>
+                        <p>Weekly Collection</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalLoans">₹0</h3>
+                        <p>Total Loans</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalFines">₹0</h3>
+                        <p>Total Fines</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="members-section">
+                <h2><i class="fas fa-list"></i> Members List</h2>
+                <div id="membersList" class="members-grid">
+                    <!-- Members will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Member Modal -->
+    <div id="addMemberModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-plus"></i> Add New Member</h2>
+                <button id="closeModalBtn" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="addMemberForm" class="member-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="memberName">Full Name</label>
+                        <input type="text" id="memberName" name="memberName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="weeklyAmount">Weekly Amount</label>
+                        <select id="weeklyAmount" name="weeklyAmount" required>
+                            <option value="">Select Amount</option>
+                            <option value="100">₹100</option>
+                            <option value="200">₹200</option>
+                            <option value="500">₹500</option>
+                            <option value="1000">₹1000</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="memberStatus">Status</label>
+                        <select id="memberStatus" name="memberStatus" required>
+                            <option value="">Select Status</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="loanAmount">Loan Amount (₹)</label>
+                        <input type="number" id="loanAmount" name="loanAmount" min="0" value="0">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fineAmount">Fine Amount (₹)</label>
+                        <input type="number" id="fineAmount" name="fineAmount" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="currentWeek">Current Week</label>
+                        <input type="number" id="currentWeek" name="currentWeek" min="1" value="1">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="cancelMemberBtn" class="cancel-btn">Cancel</button>
+                    <button type="submit" class="submit-btn">
+                        <span>Add Member</span>
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notificationToast" class="notification-toast">
+        <div class="toast-content">
+            <i id="toastIcon" class="fas fa-info-circle"></i>
+            <span id="toastMessage">Notification message</span>
+        </div>
+        <button id="closeToastBtn" class="close-toast-btn">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+</body>
+</html>
